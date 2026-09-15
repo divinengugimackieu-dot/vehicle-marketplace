@@ -1,0 +1,104 @@
+// Version: 4.0.0
+type AccessControlState__201339279 =
+  {
+    var adminAssigned : Bool;
+    userRoles : Map__230067015<Principal, UserRole__91647283>
+  };
+type BodyType__463676579 =
+  {#convertible; #coupe; #hatchback; #pickup; #sedan; #suv; #van; #wagon};
+type BodyType__729051637 =
+  {#convertible; #coupe; #hatchback; #pickup; #sedan; #suv; #van; #wagon};
+type Condition__128222180 = {#certifiedPreOwned; #new; #used};
+type Condition__987590435 = {#certifiedPreOwned; #new; #used};
+type Data__44217153<K, V> = {var count : Nat__227979830; kvs : [var ?(K, V)]};
+type Drivetrain__374282715 = {#awd; #fourWd; #fwd; #rwd};
+type Drivetrain__635336362 = {#awd; #fourWd; #fwd; #rwd};
+type ExternalBlob__220559234 = Blob;
+type FuelType__1012463267 =
+  {#diesel; #electric; #hybrid; #petrol; #plugInHybrid};
+type FuelType__388770312 =
+  {#diesel; #electric; #hybrid; #petrol; #plugInHybrid};
+type Internal__283199666<K, V> =
+  {children : [var ?Node__204828119<K, V>]; data : Data__44217153<K, V>};
+type Leaf__598469445<K, V> = {data : Data__44217153<K, V>};
+type Map__230067015<K, V> = Map__405889023<K, V>;
+type Map__405889023<K, V> = Map__603270868<K, V>;
+type Map__603270868<K, V> =
+  {var root : Node__204828119<K, V>; var size : Nat__227979830};
+type Nat__227979830 = Nat__920180692;
+type Nat__920180692 = Nat;
+type NewActor__937507792 =
+  {
+    accessControlState : AccessControlState__201339279;
+    state : {var nextId : Nat};
+    vehicles : Map__230067015<Nat, Vehicle__750707929>
+  };
+type Node__204828119<K, V> =
+  {#internal : Internal__283199666<K, V>; #leaf : Leaf__598469445<K, V>};
+type OldActor__606090735 = {};
+type Transmission__349121765 = {#automatic; #manual; #semiAutomatic};
+type Transmission__465910003 = {#automatic; #manual; #semiAutomatic};
+type UserRole__91647283 = {#admin; #guest; #user};
+type VehicleId__836043066 = Nat;
+type Vehicle__553412953 =
+  {
+    bodyType : BodyType__729051637;
+    color : Text;
+    condition : Condition__987590435;
+    description : Text;
+    drivetrain : Drivetrain__635336362;
+    featured : Bool;
+    fuelType : FuelType__388770312;
+    id : VehicleId__836043066;
+    location : Text;
+    make : Text;
+    mileage : Nat;
+    model : Text;
+    photos : [ExternalBlob__220559234];
+    price : Nat;
+    sellerContact : Text;
+    sellerNotes : Text;
+    title : Text;
+    transmission : Transmission__465910003;
+    vin : Text;
+    year : Nat
+  };
+type Vehicle__750707929 =
+  {
+    bodyType : BodyType__463676579;
+    color : Text;
+    condition : Condition__128222180;
+    description : Text;
+    drivetrain : Drivetrain__374282715;
+    featured : Bool;
+    fuelType : FuelType__1012463267;
+    id : Nat;
+    location : Text;
+    make : Text;
+    mileage : Nat;
+    model : Text;
+    photos : [ExternalBlob__220559234];
+    price : Nat;
+    sellerContact : Text;
+    sellerNotes : Text;
+    title : Text;
+    transmission : Transmission__349121765;
+    vin : Text;
+    year : Nat
+  };
+{
+  "20260915_000000" : (_old : OldActor__606090735) -> NewActor__937507792
+}
+actor  {
+  stable accessControlState :
+    {
+      var adminAssigned : Bool;
+      userRoles : Map__230067015<Principal, UserRole__91647283>
+    };
+  stable state : {var nextId : VehicleId__836043066};
+  stable vehicles :
+    {
+      var root : Node__204828119<VehicleId__836043066, Vehicle__553412953>;
+      var size : Nat__227979830
+    }
+};

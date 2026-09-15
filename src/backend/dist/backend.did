@@ -1,0 +1,179 @@
+type _ImmutableObjectStorageRefillResult = 
+ record {
+   success: opt bool;
+   topped_up_amount: opt nat;
+ };
+type _ImmutableObjectStorageRefillInformation = record {
+                                                  proposed_top_up_amount:
+                                                   opt nat;};
+type _ImmutableObjectStorageCreateCertificateResult = 
+ record {
+   blob_hash: text;
+   method: text;
+ };
+type VehicleQuery = 
+ record {
+   filter: VehicleFilter;
+   sortField: SortField;
+   sortOrder: SortOrder;
+ };
+type VehicleId = nat;
+type VehicleFilter = 
+ record {
+   bodyType: opt BodyType;
+   condition: opt Condition;
+   fuelType: opt FuelType;
+   make: opt text;
+   maxPrice: opt nat;
+   minPrice: opt nat;
+   year: opt nat;
+ };
+type Vehicle = 
+ record {
+   bodyType: BodyType;
+   color: text;
+   condition: Condition;
+   description: text;
+   drivetrain: Drivetrain;
+   featured: bool;
+   fuelType: FuelType;
+   id: VehicleId;
+   location: text;
+   make: text;
+   mileage: nat;
+   model: text;
+   photos: vec ExternalBlob;
+   price: nat;
+   sellerContact: text;
+   sellerNotes: text;
+   title: text;
+   transmission: Transmission;
+   vin: text;
+   year: nat;
+ };
+type Value = 
+ variant {
+   "bool": bool;
+   float: float64;
+   "int": int;
+   "nat": nat;
+   "null";
+   "text": text;
+ };
+type UserRole = 
+ variant {
+   admin;
+   guest;
+   user;
+ };
+type Transmission = 
+ variant {
+   automatic;
+   manual;
+   semiAutomatic;
+ };
+type SortOrder = 
+ variant {
+   asc;
+   desc;
+ };
+type SortField = 
+ variant {
+   mileage;
+   price;
+   year;
+ };
+type Result__1 = 
+ variant {
+   err: Error;
+   ok;
+ };
+type Result = 
+ record {
+   hasMore: bool;
+   rows: vec vec Cell;
+ };
+type FuelType = 
+ variant {
+   diesel;
+   electric;
+   hybrid;
+   petrol;
+   plugInHybrid;
+ };
+type ExternalBlob = blob;
+type Error = 
+ variant {
+   AmbiguousAttribute: record {
+                         field: text;
+                         sources: vec text;
+                       };
+   FrontendOriginMismatch: record {
+                             expected: vec text;
+                             got: text;
+                           };
+   FrontendOriginsNotConfigured;
+   MalformedCandid;
+   MissingField: text;
+   MixedSsoSources: record {
+                      otherKeys: vec text;
+                      ssoKeys: vec text;
+                    };
+   NoAttributes;
+   Stale: record {ageNs: nat;};
+   UnknownNonce;
+   UntrustedSsoSource: record {domain: text;};
+ };
+type Drivetrain = 
+ variant {
+   awd;
+   fourWd;
+   fwd;
+   rwd;
+ };
+type Condition = 
+ variant {
+   certifiedPreOwned;
+   new;
+   used;
+ };
+type Cell = 
+ record {
+   name: text;
+   value: Value;
+ };
+type BodyType = 
+ variant {
+   convertible;
+   coupe;
+   hatchback;
+   pickup;
+   sedan;
+   suv;
+   van;
+   wagon;
+ };
+service : {
+  _immutableObjectStorageBlobsAreLive: (hashes: vec blob) -> (vec bool) query;
+  _immutableObjectStorageBlobsToDelete: () -> (vec blob) query;
+  _immutableObjectStorageConfirmBlobDeletion: (blobs: vec blob) -> ();
+  _immutableObjectStorageCreateCertificate: (blobHash: text) ->
+   (_ImmutableObjectStorageCreateCertificateResult);
+  _immutableObjectStorageRefillCashier: (refillInformation:
+   opt _ImmutableObjectStorageRefillInformation) ->
+   (_ImmutableObjectStorageRefillResult);
+  _immutableObjectStorageUpdateGatewayPrincipals: () -> ();
+  _initialize_access_control: () -> ();
+  _internet_identity_sign_in_finish: () -> (Result__1);
+  _internet_identity_sign_in_start: () -> (blob);
+  assignCallerUserRole: (user: principal, role: UserRole) -> ();
+  createVehicle: (vehicle: Vehicle) -> (VehicleId);
+  execute: (qJson: text) -> (Result) query;
+  getApiDoc: () -> (text) query;
+  getCallerUserRole: () -> (UserRole) query;
+  getVehicle: (id: VehicleId) -> (opt Vehicle) query;
+  isCallerAdmin: () -> (bool) query;
+  listVehicles: () -> (vec Vehicle) query;
+  schema: () -> (text) query;
+  searchVehicles: (searchQuery: VehicleQuery) -> (vec Vehicle) query;
+}

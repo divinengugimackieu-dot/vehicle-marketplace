@@ -1,0 +1,19 @@
+{
+  "overview": "An online vehicle marketplace where users browse, search, and filter vehicle listings, view rich detail pages, and list their own vehicles for sale.",
+  "features": [
+    "Browse and search vehicle listings",
+    "Filter by make, body type, price, year, fuel type, and condition",
+    "View detailed vehicle pages with image galleries and specs",
+    "Sell your vehicle with a listing form and photo uploads",
+    "Preloaded sample inventory"
+  ],
+  "category": "marketplace",
+  "tags": [
+    "vehicles",
+    "marketplace",
+    "cars",
+    "buying",
+    "selling"
+  ],
+  "last_updated": "2026-09-15T12:14:49.296Z"
+}
